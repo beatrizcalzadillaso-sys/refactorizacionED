@@ -23,14 +23,14 @@ public class VentanaDepart extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JTextField numDep = new JTextField(10);
 	private JTextField nomDep = new JTextField(25);
-	private JTextField loc = new JTextField(25);
+	private JTextField location = new JTextField(25);
 
 	private JLabel mensaje = new JLabel(" ----------------------------- ");
 	private JLabel titulo = new JLabel("GESTI�N DE DEPARTAMENTOS.");
 
-	private JLabel lnum = new JLabel("NUMERO DEPARTAMENTO:");
-	private JLabel lnom = new JLabel("NOMBRE:");
-	private JLabel lloc = new JLabel("LOCALIDAD:");
+	private JLabel lblNumDep = new JLabel("NUMERO DEPARTAMENTO:");
+	private JLabel lblNomDep = new JLabel("NOMBRE:");
+	private JLabel lblLocation = new JLabel("LOCALIDAD:");
 
 	private JButton btnAlta = new JButton("Insertar Depar.t");
 	private JButton btnConsult = new JButton("Consultar Depart.");
@@ -51,20 +51,26 @@ public class VentanaDepart extends JFrame implements ActionListener {
 		p0.setBackground(colorChange);
 
 		JPanel p1 = new JPanel();
+		colorChange = Color.GREEN;
 		p1.setLayout(new FlowLayout());
-		p1.add(lnum);
+		p1.add(lblNumDep);
 		p1.add(numDep);
 		p1.add(btnConsult);
+		p1.setBackground(colorChange);
 
 		JPanel p2 = new JPanel();
+		colorChange = Color.BLUE;
 		p2.setLayout(new FlowLayout());
-		p2.add(lnom);
+		p2.add(lblNomDep);
 		p2.add(nomDep);
+		p2.setBackground(colorChange);
 
 		JPanel p3 = new JPanel();
+		colorChange = Color.MAGENTA;
 		p3.setLayout(new FlowLayout());
-		p3.add(lloc);
-		p3.add(loc);
+		p3.add(lblLocation);
+		p3.add(location);
+		p3.setBackground(colorChange);
 
 		JPanel p4 = new JPanel();
 		p4.setLayout(new FlowLayout());
@@ -113,6 +119,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		int dep, confirm;
 		
+		// 11111111
 		// Pulsado bot�n CONSULTAR
 		if (e.getSource() == btnAlta) {
 			mensaje.setText(" has pulsado el boton alta");
@@ -123,7 +130,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 						mensaje.setText("DEPARTAMENTO EXISTE.");
 					else {
 						mensaje.setText("NUEVO DEPARTAMENTO.");
-						grabar(dep, nomDep.getText(), loc.getText());
+						grabar(dep, nomDep.getText(), location.getText());
 						mensaje.setText("NUEVO DEPARTAMENTO GRABADO.");
 					}
 				else
@@ -136,6 +143,8 @@ public class VentanaDepart extends JFrame implements ActionListener {
 			}
 		}
 
+		
+		//22222222222222
 		// Pulsado bot�n CONSULTAR
 		if (e.getSource() == btnConsult) {
 			mensaje.setText(" has pulsado el boton alta");
@@ -148,7 +157,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 					} else {
 						mensaje.setText("DEPARTAMENTO NO EXISTE.");
 						nomDep.setText(" ");
-						loc.setText(" ");
+						location.setText(" ");
 					}
 				else
 					mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");
@@ -162,6 +171,8 @@ public class VentanaDepart extends JFrame implements ActionListener {
 
 		}
 
+		
+		//33333333333333333333
 		// Pulsado bot�n BORRAR
 		if (e.getSource() == btnDeleteDep) {
 			mensaje.setText(" has pulsado el boton Borrar");
@@ -179,12 +190,12 @@ public class VentanaDepart extends JFrame implements ActionListener {
 							borrar(dep);
 							mensaje.setText(" REGISTRO BORRADO: " + dep);
 							nomDep.setText(" ");
-							loc.setText(" ");
+							location.setText(" ");
 						}
 					} else {
 						mensaje.setText("DEPARTAMENTO NO EXISTE.");
 						nomDep.setText(" ");
-						loc.setText(" ");
+						location.setText(" ");
 					}
 				else
 					mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");
@@ -196,6 +207,8 @@ public class VentanaDepart extends JFrame implements ActionListener {
 			}
 		}
 		
+		
+		//4444444444444444444
 		// Pulsado bot�n MODIFICAR
 		if (e.getSource() == btnModifyDep) {
 			mensaje.setText(" has pulsado el boton Modificar.");
@@ -214,7 +227,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 					} else {
 						mensaje.setText("DEPARTAMENTO NO EXISTE.");
 						nomDep.setText(" ");
-						loc.setText(" ");
+						location.setText(" ");
 					}
 				else
 					mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");
@@ -225,12 +238,16 @@ public class VentanaDepart extends JFrame implements ActionListener {
 				mensaje.setText(" ERROR EN EL FICHERO. Fichero no existe. (MODIFICAR)");
 			}
 		}
+	
 		
+		//5555555555555555555555
 		// Pulsado bot�n SALIR
 		if (e.getSource() == btnClose) { 
 			System.exit(0);
 		}
 		
+		
+		//66666666666666666
 		// Pulsado bot�n VER POR CONSOLA
 		if (e.getSource() == btnConsolePrint) { 
 			try {
@@ -240,13 +257,15 @@ public class VentanaDepart extends JFrame implements ActionListener {
 				System.out.println("ERROR AL LEER AleatorioDep.dat");
 			}
 		}
+	
 		
+		//777777777777777
 		// Pulsado bot�n LIMPIAR
 		if (e.getSource() == btnReset) {
 			mensaje.setText(" has pulsado el boton limpiar..");
 			numDep.setText(" ");
 			nomDep.setText(" ");
-			loc.setText(" ");
+			location.setText(" ");
 		}
 	}
 
@@ -340,7 +359,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 			loca = new String(loc1);
 			System.out.println("DEP: " + dep + ", Nombre: " + nom + ", Localidad: " + loca);
 			nomDep.setText(nom);
-			loc.setText(loca);
+			location.setText(loca);
 			file.close();
 		} catch (IOException e1) {
 			System.out.println("ERROR AL LEER AleatorioDep.dat");
@@ -389,7 +408,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 			file.seek(pos);
 			file.writeInt(dep);
 			nom = nomDep.getText();
-			loca = loc.getText();
+			loca = location.getText();
 			buffer = new StringBuffer(nom);
 			buffer.setLength(10);
 			file.writeChars(buffer.toString());
@@ -422,7 +441,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 			file.writeChars(buffer.toString());// insertar nomDep
 			buffer = new StringBuffer(loc);
 			buffer.setLength(10);
-			file.writeChars(buffer.toString());// insertar loc
+			file.writeChars(buffer.toString());// insertar location
 			file.close();
 			System.out.println(" GRABADO el " + dep);
 		} catch (IOException e1) {
