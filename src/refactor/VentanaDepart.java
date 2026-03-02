@@ -21,8 +21,8 @@ import javax.swing.WindowConstants;
 public class VentanaDepart extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField num = new JTextField(10);
-	private JTextField nombre = new JTextField(25);
+	private JTextField numDep = new JTextField(10);
+	private JTextField nomDep = new JTextField(25);
 	private JTextField loc = new JTextField(25);
 
 	private JLabel mensaje = new JLabel(" ----------------------------- ");
@@ -32,34 +32,34 @@ public class VentanaDepart extends JFrame implements ActionListener {
 	private JLabel lnom = new JLabel("NOMBRE:");
 	private JLabel lloc = new JLabel("LOCALIDAD:");
 
-	private JButton balta = new JButton("Insertar Depar.t");
-	private JButton consu = new JButton("Consultar Depart.");
-	private JButton borra = new JButton("Borrar Depart.");
-	private JButton breset = new JButton("Limpiar datos.");
-	private JButton modif = new JButton("Modificar Departamento.");
-	private JButton ver = new JButton("Ver por consola.");
-	private JButton fin = new JButton("CERRAR");
+	private JButton btnAlta = new JButton("Insertar Depar.t");
+	private JButton btnConsult = new JButton("Consultar Depart.");
+	private JButton btnDeleteDep = new JButton("Borrar Depart.");
+	private JButton btnReset = new JButton("Limpiar datos.");
+	private JButton btnModifyDep = new JButton("Modificar Departamento.");
+	private JButton btnConsolePrint = new JButton("Ver por consola.");
+	private JButton btnClose = new JButton("CERRAR");
 	
-	private Color c;
+	private Color colorChange;
 
-	public VentanaDepart(JFrame f) {
+	public VentanaDepart(JFrame workingFrame) {
 		setTitle("GESTI�N DE DEPARTAMENTOS.");
 
 		JPanel p0 = new JPanel();
-		c = Color.CYAN;
+		colorChange = Color.CYAN;
 		p0.add(titulo);
-		p0.setBackground(c);
+		p0.setBackground(colorChange);
 
 		JPanel p1 = new JPanel();
 		p1.setLayout(new FlowLayout());
 		p1.add(lnum);
-		p1.add(num);
-		p1.add(consu);
+		p1.add(numDep);
+		p1.add(btnConsult);
 
 		JPanel p2 = new JPanel();
 		p2.setLayout(new FlowLayout());
 		p2.add(lnom);
-		p2.add(nombre);
+		p2.add(nomDep);
 
 		JPanel p3 = new JPanel();
 		p3.setLayout(new FlowLayout());
@@ -68,19 +68,19 @@ public class VentanaDepart extends JFrame implements ActionListener {
 
 		JPanel p4 = new JPanel();
 		p4.setLayout(new FlowLayout());
-		c = Color.YELLOW;
-		p4.add(balta);
-		p4.add(borra);
-		p4.add(modif);
-		p4.setBackground(c);
+		colorChange = Color.YELLOW;
+		p4.add(btnAlta);
+		p4.add(btnDeleteDep);
+		p4.add(btnModifyDep);
+		p4.setBackground(colorChange);
 
 		JPanel p5 = new JPanel();
 		p4.setLayout(new FlowLayout());
-		c = Color.PINK;
-		p5.add(breset);
-		p5.add(ver);
-		p5.add(fin);
-		p5.setBackground(c);
+		colorChange = Color.PINK;
+		p5.add(btnReset);
+		p5.add(btnConsolePrint);
+		p5.add(btnClose);
+		p5.setBackground(colorChange);
 
 		JPanel p7 = new JPanel();
 		p7.setLayout(new FlowLayout());
@@ -101,29 +101,29 @@ public class VentanaDepart extends JFrame implements ActionListener {
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		balta.addActionListener(this);
-		breset.addActionListener(this);
-		fin.addActionListener(this);
-		consu.addActionListener(this);
-		borra.addActionListener(this);
-		modif.addActionListener(this);
-		ver.addActionListener(this);
+		btnAlta.addActionListener(this);
+		btnReset.addActionListener(this);
+		btnClose.addActionListener(this);
+		btnConsult.addActionListener(this);
+		btnDeleteDep.addActionListener(this);
+		btnModifyDep.addActionListener(this);
+		btnConsolePrint.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		int dep, confirm;
 		
 		// Pulsado bot�n CONSULTAR
-		if (e.getSource() == balta) {
+		if (e.getSource() == btnAlta) {
 			mensaje.setText(" has pulsado el boton alta");
 			try {
-				dep = Integer.parseInt(num.getText());
+				dep = Integer.parseInt(numDep.getText());
 				if (dep > 0)
 					if (consultar(dep))
 						mensaje.setText("DEPARTAMENTO EXISTE.");
 					else {
 						mensaje.setText("NUEVO DEPARTAMENTO.");
-						grabar(dep, nombre.getText(), loc.getText());
+						grabar(dep, nomDep.getText(), loc.getText());
 						mensaje.setText("NUEVO DEPARTAMENTO GRABADO.");
 					}
 				else
@@ -137,17 +137,17 @@ public class VentanaDepart extends JFrame implements ActionListener {
 		}
 
 		// Pulsado bot�n CONSULTAR
-		if (e.getSource() == consu) {
+		if (e.getSource() == btnConsult) {
 			mensaje.setText(" has pulsado el boton alta");
 			try {
-				dep = Integer.parseInt(num.getText());
+				dep = Integer.parseInt(numDep.getText());
 				if (dep > 0)
 					if (consultar(dep)) {
 						mensaje.setText("DEPARTAMENTO EXISTE.");
 						visualiza(dep);
 					} else {
 						mensaje.setText("DEPARTAMENTO NO EXISTE.");
-						nombre.setText(" ");
+						nomDep.setText(" ");
 						loc.setText(" ");
 					}
 				else
@@ -163,10 +163,10 @@ public class VentanaDepart extends JFrame implements ActionListener {
 		}
 
 		// Pulsado bot�n BORRAR
-		if (e.getSource() == borra) {
+		if (e.getSource() == btnDeleteDep) {
 			mensaje.setText(" has pulsado el boton Borrar");
 			try {
-				dep = Integer.parseInt(num.getText());
+				dep = Integer.parseInt(numDep.getText());
 				if (dep > 0)
 					if (consultar(dep)) {
 						mensaje.setText("DEPARTAMENTO EXISTE.");
@@ -178,12 +178,12 @@ public class VentanaDepart extends JFrame implements ActionListener {
 						if (confirm == 0) {
 							borrar(dep);
 							mensaje.setText(" REGISTRO BORRADO: " + dep);
-							nombre.setText(" ");
+							nomDep.setText(" ");
 							loc.setText(" ");
 						}
 					} else {
 						mensaje.setText("DEPARTAMENTO NO EXISTE.");
-						nombre.setText(" ");
+						nomDep.setText(" ");
 						loc.setText(" ");
 					}
 				else
@@ -197,10 +197,10 @@ public class VentanaDepart extends JFrame implements ActionListener {
 		}
 		
 		// Pulsado bot�n MODIFICAR
-		if (e.getSource() == modif) {
+		if (e.getSource() == btnModifyDep) {
 			mensaje.setText(" has pulsado el boton Modificar.");
 			try {
-				dep = Integer.parseInt(num.getText());
+				dep = Integer.parseInt(numDep.getText());
 				if (dep > 0)
 					if (consultar(dep)) {
 						mensaje.setText("DEPARTAMENTO EXISTE.");
@@ -213,7 +213,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 						}
 					} else {
 						mensaje.setText("DEPARTAMENTO NO EXISTE.");
-						nombre.setText(" ");
+						nomDep.setText(" ");
 						loc.setText(" ");
 					}
 				else
@@ -227,12 +227,12 @@ public class VentanaDepart extends JFrame implements ActionListener {
 		}
 		
 		// Pulsado bot�n SALIR
-		if (e.getSource() == fin) { 
+		if (e.getSource() == btnClose) { 
 			System.exit(0);
 		}
 		
 		// Pulsado bot�n VER POR CONSOLA
-		if (e.getSource() == ver) { 
+		if (e.getSource() == btnConsolePrint) { 
 			try {
 				mensaje.setText("Visualizando el fichero por la consolaa.....");
 				verporconsola();
@@ -242,10 +242,10 @@ public class VentanaDepart extends JFrame implements ActionListener {
 		}
 		
 		// Pulsado bot�n LIMPIAR
-		if (e.getSource() == breset) {
+		if (e.getSource() == btnReset) {
 			mensaje.setText(" has pulsado el boton limpiar..");
-			num.setText(" ");
-			nombre.setText(" ");
+			numDep.setText(" ");
+			nomDep.setText(" ");
 			loc.setText(" ");
 		}
 	}
@@ -284,8 +284,11 @@ public class VentanaDepart extends JFrame implements ActionListener {
 			
 			file.close(); // cerrar fichero
 			System.out.println(" ------------------------------------------");
-		} else // esto s�lo sale la primera vez
+		} else {// esto s�lo sale la primera vez
 			System.out.println(" ---------FICHERO VAC�O --------------------");
+			file.close(); // cerrar fichero
+			System.out.println(" ------------------------------------------");
+		}
 	}// fin verporconsola
 
 	boolean consultar(int dep) throws IOException {
@@ -336,7 +339,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 			nom = new String(nom1);
 			loca = new String(loc1);
 			System.out.println("DEP: " + dep + ", Nombre: " + nom + ", Localidad: " + loca);
-			nombre.setText(nom);
+			nomDep.setText(nom);
 			loc.setText(loca);
 			file.close();
 		} catch (IOException e1) {
@@ -346,7 +349,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 	} // fin visualiza
 
 	void borrar(int dep) { // con borrar ponemos a 0 el dep que se quiere borrar
-							// y a blancos el nombre y la localidad
+							// y a blancos el nomDep y la localidad
 		String nom = "", loca = "";
 		StringBuffer buffer = null;
 		long pos;
@@ -385,7 +388,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 			pos = 44 * (dep - 1);
 			file.seek(pos);
 			file.writeInt(dep);
-			nom = nombre.getText();
+			nom = nomDep.getText();
 			loca = loc.getText();
 			buffer = new StringBuffer(nom);
 			buffer.setLength(10);
@@ -416,7 +419,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
 			file.writeInt(dep);
 			buffer = new StringBuffer(nom);
 			buffer.setLength(10);
-			file.writeChars(buffer.toString());// insertar nombre
+			file.writeChars(buffer.toString());// insertar nomDep
 			buffer = new StringBuffer(loc);
 			buffer.setLength(10);
 			file.writeChars(buffer.toString());// insertar loc

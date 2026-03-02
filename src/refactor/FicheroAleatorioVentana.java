@@ -8,18 +8,22 @@ import javax.swing.JFrame;
 
 public class FicheroAleatorioVentana {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 
-		JFrame jFrame = new JFrame("DEPARTAMENTOS.");
-
-		// Nos aseguramos que el fichero exista para evitar posibles errores
-		File fichero = new File("AleatorioDep.dat");
-
-		RandomAccessFile file;
-		file = new RandomAccessFile(fichero, "rw");
-		file.close();
-
-		VentanaDepart ventanaDepart = new VentanaDepart(jFrame);
-		ventanaDepart.setVisible(true);
+		JFrame depDesk = new JFrame("DEPARTAMENTOS.");
+		
+		try {
+			
+			File fichero = new File("AleatorioDep.dat");
+	
+			RandomAccessFile fileObject;
+			fileObject = new RandomAccessFile(fichero, "rw");
+			fileObject.close();
+	
+			VentanaDepart ventanaDepart = new VentanaDepart(depDesk);
+			ventanaDepart.setVisible(true);
+		} catch(IOException exc) {
+			exc.printStackTrace();
+		}	
 	}
 }
